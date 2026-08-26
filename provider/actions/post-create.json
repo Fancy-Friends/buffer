@@ -1,0 +1,82 @@
+{
+  "$comment": "Read from Buffer's current Create Text Post example and GraphQL reference: createPost(input: CreatePostInput!) returns PostActionPayload. The request is a JSON GraphQL envelope at api.buffer.com, not the form-encoded body used by Buffer's legacy REST API.",
+  "operation": "post_create",
+  "kind": "post",
+  "title": "Buffer post",
+  "description": "Create or queue a text post in Buffer.",
+  "summary": "create a Buffer post",
+  "docs": "https://developers.buffer.com/examples/create-text-post.html",
+  "sideEffects": "unsafe-to-replay",
+
+  "$idempotencyComment": "createPost exposes no idempotency argument or documented idempotency header. A retry can create a SECOND queued post or publish the text twice, so this is honestly unsafe-to-replay rather than protected by a guarantee Buffer does not make.",
+
+  "request": {
+    "method": "POST",
+    "path": "/",
+    "encoding": "graphql",
+    "$pathComment": "The operation is not in the URL. Every current Buffer query and mutation POSTs to the single https://api.buffer.com endpoint; the GraphQL document names createPost.",
+    "document": "mutation CreatePost(\n  $channelId: ChannelId!,\n  $text: String!,\n  $schedulingType: SchedulingType!,\n  $shareMode: ShareMode!\n) {\n  createPost(input: {\n    channelId: $channelId\n    text: $text\n    schedulingType: $schedulingType\n    mode: $shareMode\n  }) {\n    ... on PostActionSuccess {\n      post {\n        id\n        status\n        text\n        assets {\n          id\n          mimeType\n        }\n      }\n    }\n    ... on MutationError {\n      message\n    }\n  }\n}"
+  },
+
+  "config": [
+    {
+      "type": "text",
+      "key": "channelId",
+      "label": "Channel ID",
+      "required": true,
+      "description": "The Buffer channel that will own and publish the post.",
+      "send": { "as": "channelId", "value": "string" }
+    },
+    {
+      "type": "textarea",
+      "key": "text",
+      "label": "Post text",
+      "required": true,
+      "description": "The text Buffer stores for the post. Network-specific length and content rules still apply at mutation time.",
+      "send": { "as": "text", "value": "string" }
+    },
+    {
+      "type": "select",
+      "key": "schedulingType",
+      "label": "Publishing method",
+      "required": true,
+      "default": "automatic",
+      "description": "Automatic publishing sends through the connected network; notification publishing asks the user to finish through Buffer's notification workflow.",
+      "options": [
+        { "value": "automatic", "label": "Automatic" },
+        { "value": "notification", "label": "Notification" }
+      ],
+      "send": { "as": "schedulingType", "value": "string" }
+    },
+    {
+      "type": "select",
+      "key": "shareMode",
+      "label": "Queue position",
+      "required": true,
+      "default": "addToQueue",
+      "description": "Add to the normal queue, publish now, or place it next in line.",
+      "options": [
+        { "value": "addToQueue", "label": "Add to queue" },
+        { "value": "shareNow", "label": "Share now" },
+        { "value": "shareNext", "label": "Share next" }
+      ],
+      "send": { "as": "shareMode", "value": "string" },
+      "$comment": "The GraphQL input field is named mode, but `mode` is reserved by the connector runtime. The document deliberately maps the non-reserved variable $shareMode into input.mode, preserving Buffer's wire contract without colliding with estate selection."
+    }
+  ],
+
+  "outputShape": [
+    { "path": "data.createPost.post.id", "type": "string", "description": "The created Buffer post id." },
+    { "path": "data.createPost.post.status", "type": "string", "description": "The post's current queue or publishing status." },
+    { "path": "data.createPost.post.text", "type": "string", "description": "The text Buffer stored for the post." },
+    { "path": "data.createPost.post.assets", "type": "array", "description": "Assets attached to the post; empty for this text-only action." },
+    { "path": "data.createPost.message", "type": "string", "description": "A user-fixable MutationError message when Buffer rejects the input inside an HTTP 200 GraphQL response." }
+  ],
+  "$outputComment": "GraphQL wraps the mutation under data.createPost. PostActionPayload is a union: success carries post, while a typed MutationError carries message in the SAME HTTP-200 data envelope. The success fixture reproduces the post branch and does not invent a wrapper Buffer never returns.",
+
+  "contract": {
+    "$comment": "For GraphQL drift these are createPost's input fields and the fields selected from its union payload.",
+    "sends": ["channelId", "text", "schedulingType", "mode"],
+    "reads": ["post", "id", "status", "text", "assets", "message"]
+  }
+}

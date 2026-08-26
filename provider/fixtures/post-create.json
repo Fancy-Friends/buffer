@@ -1,0 +1,17 @@
+{
+  "$comment": "The successful GraphQL response is wrapped under data.createPost and contains the Post directly under post. MutationError is an alternative union branch, so a success does not also carry an empty message field.",
+  "operation": "post_create",
+  "response": {
+    "data": {
+      "createPost": {
+        "post": {
+          "id": "03d899f7-0c28-8510-bf6d-93a9c265d743",
+          "status": "buffer",
+          "text": "A useful update should not be shortened to accommodate generated source formatting.",
+          "assets": []
+        }
+      }
+    },
+    "$errorsComment": "No top-level errors key on success. System failures use GraphQL's errors array; user-fixable mutation failures instead select the MutationError.message branch under data.createPost."
+  }
+}

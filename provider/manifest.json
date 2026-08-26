@@ -1,0 +1,77 @@
+{
+  "$comment": "THE hand-written part. Four packages -- ui, js, php, py -- are generated from this directory and are never edited. Buffer's current API is GraphQL at api.buffer.com; the old api.bufferapp.com/1 REST API and its form bodies are legacy, as Buffer's own migration guide states.",
+
+  "connectorApi": 1,
+
+  "service": "buffer",
+  "title": "Buffer",
+  "domain": "marketing",
+  "docs": "https://developers.buffer.com/examples/create-text-post.html",
+
+  "auth": "oauth2",
+  "requires": ["accessToken"],
+  "$requiresComment": "Only the access token is presented to api.buffer.com. The client pair, PKCE verifier and rotating refresh token belong to the host's OAuth lifecycle, not to an ordinary GraphQL request.",
+
+  "authorize": {
+    "kind": "bearer",
+    "credential": "accessToken",
+    "$comment": "Buffer also offers personal API keys, but those act only on the key owner's account. This provider declares App Client OAuth so a host can connect separate Buffer users; both token kinds use the same Bearer header on the wire."
+  },
+
+  "oauth": {
+    "flow": "authorization_code",
+    "authorizeUrl": "https://auth.buffer.com/auth",
+    "tokenUrl": "https://auth.buffer.com/token",
+    "scopes": ["posts:write", "offline_access"],
+    "accessTokenCredential": "accessToken",
+    "refreshTokenCredential": "refreshToken",
+    "refreshTokenRotates": true,
+    "$refreshTokenRotates": "Buffer says refresh tokens are single-use: every successful refresh returns a new refresh_token and invalidates the one sent. Reusing an old token revokes every token for that grant and forces the user to authorize again, so the host must serialize refreshes and must not replay one after an ambiguous failure.",
+    "accessTokenTtlSeconds": 3600,
+    "pkce": "S256",
+    "$scopeComment": "posts:write is the permission createPost needs. offline_access is not decorative: Buffer returns a refresh token only when this scope was requested.",
+    "$comment": "Authorization Code with PKCE is required for every Buffer OAuth client, including confidential clients that also send client_secret. The host must retain the verifier from authorization through the code exchange; S256 is the only documented challenge method."
+  },
+
+  "sandbox": "none",
+  "$sandboxComment": "CHECKED. Buffer documents API keys, OAuth App Clients and one live GraphQL endpoint, but no test account or test host. A created post belongs to a real Buffer channel and may publish to a real audience; the faker is the safe development estate.",
+  "sandboxNote": "Buffer has no separate test estate. createPost writes to a real Buffer channel and can publish to the connected social account. Use fake mode while building, then test against a deliberately private or disposable real channel.",
+
+  "baseUrls": {
+    "live": "https://api.buffer.com"
+  },
+
+  "encoding": "graphql",
+  "$encodingComment": "Buffer's current API always POSTs a JSON GraphQL envelope to one endpoint. Historical REST examples used form bodies at api.bufferapp.com/1; copying that encoding would target the retired generation rather than this API.",
+
+  "credentialFields": [
+    {
+      "key": "clientId",
+      "label": "OAuth client ID",
+      "scope": "provider",
+      "secret": false,
+      "help": "From the Buffer App Client registered under Settings -> API; one value for the whole installation."
+    },
+    {
+      "key": "clientSecret",
+      "label": "OAuth client secret",
+      "scope": "provider",
+      "secret": true,
+      "help": "For a confidential App Client. Buffer still requires PKCE in addition to this secret, not instead of it."
+    },
+    {
+      "key": "accessToken",
+      "label": "Access token",
+      "scope": "account",
+      "secret": true,
+      "help": "Per connected Buffer user. It expires after one hour and is sent as a Bearer token."
+    },
+    {
+      "key": "refreshToken",
+      "label": "Rotating refresh token",
+      "scope": "account",
+      "secret": true,
+      "help": "Per connected user and single-use. Replace it atomically after every refresh; replaying an old value revokes the grant."
+    }
+  ]
+}
