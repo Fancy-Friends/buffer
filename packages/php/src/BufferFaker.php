@@ -48,7 +48,7 @@ final class BufferFaker
     }
 
     /** @param array<string,mixed> $config */
-    private static function PostCreate(array $config, mixed $fake): array
+    private static function PostCreate(array $config, mixed $fake): array|\stdClass
     {
         return [
         'data' => [
