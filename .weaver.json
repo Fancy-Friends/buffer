@@ -51,7 +51,7 @@
     "packages/py/src/fancy_buffer/_runtime.py": "b800fc69ce4634f64b41dc6eb43a08b183ed44ff89181c1e51b3bd3b2859f3b1",
     "packages/py/src/fancy_buffer/actions/__init__.py": "a386af3fe74a7200b7825add8adbff81253d597216dff3639466e7063a7aadf8",
     "packages/py/src/fancy_buffer/actions/post_create.py": "db6efc59217d17e9e565120f782b048949daf8295499d94f967dd8a104694c21",
-    "packages/py/src/fancy_buffer/faker.py": "cc69b82d2277796ca4b2b79db0d299a96cb2ab61c480d50d481d4cd36d1ea6e0",
+    "packages/py/src/fancy_buffer/faker.py": "1f59e1e5f7619aa714980362cd15bcf95e8e171410ecebdb5f8e3a942835e57d",
     "packages/py/src/fancy_buffer/py.typed": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "packages/py/src/fancy_buffer/service.py": "047965e4352d547ffdf21aa9d7ef565b1a5606b22e544fdb454386e646eed505",
     "packages/py/tests/test_faker.py": "cebd37d2f7c7eb00f7afe67c875453490ef331c19fe6cce96bf32b6cba495464",
