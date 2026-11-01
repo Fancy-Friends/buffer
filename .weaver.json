@@ -49,7 +49,7 @@
     "packages/py/pyproject.toml": "34e7389a7159ba236f9d5e60ea4c2f272016c3f4f8c27fe8708b63a1d35d1382",
     "packages/py/src/fancy_buffer/__init__.py": "b57fb1fab51523491363172e60e681539c3cd5ea88b4ffa1fcff2ad3031fc822",
     "packages/py/src/fancy_buffer/_fake.py": "cbabf2ff017e41f4c3bda0f608b63dcf1f34ba366a318d7ca6b2e176cabdbe1f",
-    "packages/py/src/fancy_buffer/_runtime.py": "b800fc69ce4634f64b41dc6eb43a08b183ed44ff89181c1e51b3bd3b2859f3b1",
+    "packages/py/src/fancy_buffer/_runtime.py": "3e59560439997e5cf2539b4e9c1c20c5d0c8d02d66d93d37f270be62f8dfb0f6",
     "packages/py/src/fancy_buffer/actions/__init__.py": "a386af3fe74a7200b7825add8adbff81253d597216dff3639466e7063a7aadf8",
     "packages/py/src/fancy_buffer/actions/post_create.py": "db6efc59217d17e9e565120f782b048949daf8295499d94f967dd8a104694c21",
     "packages/py/src/fancy_buffer/faker.py": "1f59e1e5f7619aa714980362cd15bcf95e8e171410ecebdb5f8e3a942835e57d",
