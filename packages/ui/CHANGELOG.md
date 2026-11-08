@@ -4,6 +4,22 @@ All notable changes to `@particle-academy/buffer-ui`,
 `@particle-academy/buffer-js`, `particle-academy/buffer-php` and
 `fancy-buffer`.
 
+## [0.2.1] — 2026-11-08
+
+### Fixed
+
+- **The Laravel config's environment variable names now split camelCase**,
+  as documented. **Consumer action: none.** The old unsplit names are still
+  read as a fallback, so an app that set them keeps working; the new names
+  are preferred.
+
+  | Preferred | Still read |
+  |---|---|
+  | `BUFFER_CLIENT_ID` | `BUFFER_CLIENTID` |
+  | `BUFFER_CLIENT_SECRET` | `BUFFER_CLIENTSECRET` |
+  | `BUFFER_ACCESS_TOKEN` | `BUFFER_ACCESSTOKEN` |
+  | `BUFFER_REFRESH_TOKEN` | `BUFFER_REFRESHTOKEN` |
+
 ## [0.2.0] — 2026-11-08
 
 ### Added

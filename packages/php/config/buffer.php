@@ -20,12 +20,12 @@ return [
 
     'credentials' => [
         // OAuth client ID (one per installation).
-        'clientId' => env('BUFFER_CLIENTID'),
+        'clientId' => env('BUFFER_CLIENT_ID', env('BUFFER_CLIENTID')),
         // OAuth client secret (one per installation, secret).
-        'clientSecret' => env('BUFFER_CLIENTSECRET'),
+        'clientSecret' => env('BUFFER_CLIENT_SECRET', env('BUFFER_CLIENTSECRET')),
         // Access token (per connected account, secret).
-        'accessToken' => env('BUFFER_ACCESSTOKEN'),
+        'accessToken' => env('BUFFER_ACCESS_TOKEN', env('BUFFER_ACCESSTOKEN')),
         // Rotating refresh token (per connected account, secret).
-        'refreshToken' => env('BUFFER_REFRESHTOKEN'),
+        'refreshToken' => env('BUFFER_REFRESH_TOKEN', env('BUFFER_REFRESHTOKEN')),
     ],
 ];
