@@ -4,6 +4,27 @@ All notable changes to `@particle-academy/buffer-ui`,
 `@particle-academy/buffer-js`, `particle-academy/buffer-php` and
 `fancy-buffer`.
 
+## [0.2.0] — 2026-11-08
+
+### Added
+
+- **Laravel integration, in this package** (`src/Laravel/`), auto-discovered
+  through composer's `extra.laravel`. Laravel is SUGGESTED, never required:
+  outside a Laravel app none of it loads.
+  - a service provider that merges `config/buffer.php` under
+    `connectors.buffer` (credentials from the environment, or per call for a
+    multi-account app);
+  - the `Buffer` facade: `Buffer::call('<operation>', [...])` runs any action;
+  - `Buffer::fake()`, answered from the connector's faker, with
+    `assertSent` / `assertNotSent` / `assertNothingSent` / `assertSentCount`;
+  - its own Pest test of all of it against a booted Laravel app.
+
+### Changed
+
+- **Tests: Pest `^5`**, and `laravel/framework` `^13` as a DEV-ONLY test
+  dependency (the framework this package integrates with; nothing ships in
+  `require`).
+
 ## [0.1.3] — 2026-09-12
 
 ### Changed
