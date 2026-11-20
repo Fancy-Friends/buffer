@@ -5,9 +5,9 @@
   "connectorApi": 1,
   "files": {
     ".gitattributes": "3b81cb009a60ff7f0762f24c5d336a4afd0284f2716e54c4823da08d839f664c",
-    ".github/workflows/ci.yml": "c96bab67def1721dec5a5968582f244eb8610fc80903dfb0f9bad0be1fb7fc48",
+    ".github/workflows/ci.yml": "2cc05e3bcfd68429a0372b58e9d7b8bf493f088da56e3e4cb15ab1ff7d461e53",
     ".github/workflows/codeql.yml": "156cd6822363d5d52ced59907a14ca7924e9dce6b8a7b61894f12eeb5800a82b",
-    ".github/workflows/publish.yml": "e8625ff9389d42ab4735d2626599377dd97b591168ec6ad12e51fcf0739c760b",
+    ".github/workflows/publish.yml": "3242406faada565ab72b382bac288c3ad163e302f416d0fa399d0f14161a1e7f",
     ".github/workflows/verify-published.yml": "3f122ba922f35f589e8ff700d36a092a1f572c2ac86ac25282b79280b5c9ea39",
     ".gitignore": "47a7633c70c1d1e6b3c17a782a105355accfb3495d6402f7f308256bf505e1ad",
     "AGENTS.md": "bfcd26a216b8a033c8dc6592178b8796bf02d9da6c5d9abfc2798b603c3ee8d3",
